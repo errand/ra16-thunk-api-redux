@@ -4,7 +4,7 @@ export const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
     services: [],
-    filterKey: null,
+    error: '',
     loading: 'idle',
   },
   reducers: {
@@ -17,6 +17,12 @@ export const tasksSlice = createSlice({
       if (state.loading === 'pending') {
         state.loading = 'idle'
         state.services = action.payload
+      }
+    },
+    servicesError: (state, action) => {
+      if (state.loading === 'pending') {
+        state.loading = 'idle'
+        state.error = action.payload
       }
     },
     deleteService: (state, action) => {
@@ -40,6 +46,6 @@ export const tasksSlice = createSlice({
   }
 });
 
-export const {deleteService, editService, servicesLoading, servicesReceived} = tasksSlice.actions;
+export const {deleteService, editService, servicesLoading, servicesReceived, servicesError} = tasksSlice.actions;
 
 export default tasksSlice.reducer;

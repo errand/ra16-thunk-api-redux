@@ -21,7 +21,7 @@ export default function Task({ id, title, price }) {
 };
 
 Task.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired
+  price: PropTypes.number.isRequired
 };
