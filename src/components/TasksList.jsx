@@ -1,6 +1,6 @@
 import Task from './Task';
 import {useDispatch, useSelector} from "react-redux";
-import { servicesReceived, servicesLoading, servicesError } from "../redux/tasksSlice";
+import {servicesReceived, servicesLoading, servicesError, deleteService} from "../redux/tasksSlice";
 import {useEffect} from "react";
 
 export default function TasksList() {
@@ -26,8 +26,23 @@ export default function TasksList() {
       .then(json => {
         dispatch(servicesReceived(json))
       })
-      .catch(() => dispatch(servicesError('Произошла ошибка')));
+      .catch((err) => dispatch(servicesError(`Произошла ошибка: ${err}`)));
   }
+
+  const deleteServices = (id) => (dispatch) => {
+    dispatch(servicesLoading());
+    fetch("http://localhost:7070/api/services/" + id, {
+      method: "DELETE"
+    })
+      .then(() => {
+        dispatch(deleteService(id))
+      })
+      .then(() => dispatch(servicesLoading()))
+      .then(() => dispatch(fetchServices()))
+      .catch((err) => dispatch(servicesError(`Произошла ошибка: ${err}`)));
+  }
+
+  const deleteTask = (id) => dispatch(deleteServices(id));
 
   useEffect(() => {
     dispatch(fetchServices())
@@ -45,7 +60,7 @@ export default function TasksList() {
       </li> }
       {error && <div className="alert alert-danger">{error}</div>}
       {tasks ? tasks.map((task) => (
-        <Task key={task.id} id={task.id} title={task.name} price={task.price} />
+        <Task key={task.id} id={task.id} title={task.name} price={task.price} onClick={deleteTask} />
       )) : 'Nothing found'}
     </ul>
   );

@@ -28,16 +28,16 @@ export const tasksSlice = createSlice({
     deleteService: (state, action) => {
       if (state.loading === 'pending') {
         state.loading = 'idle'
-        state.tasks = state.tasks.filter((item) => item.id !== action.payload.id);
+        state.services = state.services.filter((item) => item.id !== action.payload.id);
       }
     },
     editService: (state, action) => {
-      state.tasks.forEach(item => {
+      state.services.forEach(item => {
         if(item.status === 'editing') {
           item.status = ''
         }
       })
-      state.tasks.forEach(item => {
+      state.services.forEach(item => {
         if(item.id === action.payload.id) {
           item.status = 'editing'
         }
