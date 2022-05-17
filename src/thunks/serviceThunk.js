@@ -1,10 +1,28 @@
-import {deleteService, servicesError, servicesLoading, servicesReceived} from "../redux/tasksSlice";
+import {deleteService, servicesError, servicesLoading, servicesReceived, filterService} from "../redux/tasksSlice";
 
 export const fetchServices = () => (dispatch) => {
 
   dispatch(servicesLoading());
 
   fetch("http://localhost:7070/api/services")
+    .then(request => {
+      if (request.status === 200) {
+        return request.json();
+      } else {
+        dispatch(servicesError('Произошла ошибка'));
+        return;
+      }
+    })
+    .then(json => {
+      dispatch(servicesReceived(json))
+    })
+    .catch((err) => dispatch(servicesError(`Произошла ошибка: ${err}`)));
+}
+
+export const fetchServiceById = (id) => (dispatch) => {
+  dispatch(servicesLoading());
+
+  fetch("http://localhost:7070/api/services/" + id)
     .then(request => {
       if (request.status === 200) {
         return request.json();

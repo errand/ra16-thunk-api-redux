@@ -8,7 +8,6 @@ import {
 export default function Task({ id, title, price }) {
   const dispatch = useDispatch();
 
-
   const deleteTask = (id) => dispatch(deleteServices(id));
 
     return (
@@ -16,7 +15,7 @@ export default function Task({ id, title, price }) {
       <div className="col-6 col-lg-10">{title}</div>
       <div className="flex-fill">{price}</div>
       <div className="controls">
-        <Link  to={`/services/${id}`} className="btn btn-primary badge me-1">Edit</Link>
+        <Link to={`/services/${id}`} className="btn btn-primary badge me-1">Edit</Link>
         <button className="btn btn-danger badge" onClick={()=>{ deleteTask(id) }}>Delete</button>
       </div>
     </li>

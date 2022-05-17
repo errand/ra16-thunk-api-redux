@@ -17,6 +17,7 @@ const App = () => {
           <Route path="/services" element={<TasksList />} />
           <Route path="/services/:id" element={<TaskEditForm />} />
           <Route path="/" element={<Navigate to="/services" replace />} />
+          <Route path="*" element={<Navigate to="/services" replace />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -46,6 +46,6 @@ export const tasksSlice = createSlice({
   }
 });
 
-export const {deleteService, editService, servicesLoading, servicesReceived, servicesError} = tasksSlice.actions;
+export const {deleteService, filterService, servicesLoading, servicesReceived, servicesError} = tasksSlice.actions;
 
 export default tasksSlice.reducer;
