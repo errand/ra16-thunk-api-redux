@@ -1,21 +1,23 @@
-import {fetchServiceById, updateServices} from "../thunks/serviceThunk";
+import {fetchServiceById, updateServices } from "../thunks/serviceThunk";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import { useHistory } from 'react-router-dom';
 import {
   Link
 } from "react-router-dom";
 
 export default function TaskEditForm() {
 
-  const { id } = useParams();
+  let { id } = useParams();
+  id = +id
+
   const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const task = useSelector(state => state.tasks.services)
   const loading = useSelector(state => state.tasks.loading)
   const error = useSelector(state => state.tasks.error)
+  const goodToGo = useSelector(state => state.tasks.goodToGo)
 
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
@@ -24,17 +26,18 @@ export default function TaskEditForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const goName = name ? name : task.name
-    const goPrice = price ? price : task.price
+    const goPrice = price ? price : +task.price
     const goContent = content ? content : task.content
     dispatch(updateServices({id, name: goName, price: goPrice, content: goContent}))
   }
 
   useEffect(() => {
     dispatch(fetchServiceById(id));
-  },[dispatch])
+  },[dispatch, id])
 
   return (
     <>
+      {goodToGo && navigate('/services')}
       {error && <div className="alert alert-danger">{error}</div>}
       {loading === 'pending' ? <div className="spinner"></div> :
       <form onSubmit={handleSubmit}>

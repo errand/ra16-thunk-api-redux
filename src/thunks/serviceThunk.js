@@ -1,4 +1,4 @@
-import {deleteService, servicesError, servicesLoading, servicesReceived, editService} from "../redux/tasksSlice";
+import { servicesError, servicesLoading, servicesReceived, servicesRedirect } from "../redux/tasksSlice";
 
 export const fetchServices = () => (dispatch) => {
 
@@ -42,25 +42,23 @@ export const deleteServices = (id) => (dispatch) => {
   fetch("http://localhost:7070/api/services/" + id, {
     method: "DELETE"
   })
-    .then(() => {
-      dispatch(deleteService(id))
-    })
-    .then(() => dispatch(servicesLoading()))
     .then(() => dispatch(fetchServices()))
     .catch((err) => dispatch(servicesError(`Произошла ошибка: ${err}`)));
 }
 
 export const updateServices = (obj) => (dispatch) => {
   dispatch(servicesLoading());
-  fetch("http://localhost:7070/api/services/", {
-    method: "POST"
+  fetch("http://localhost:7070/api/services", {
+    method: "POST",
+    body: JSON.stringify(obj),
   })
-    .then(() => {
-      dispatch(editService(obj))
+    .then((res) => {
+      console.log(res);
+      res.ok ? dispatch(servicesRedirect(true)) : dispatch(servicesRedirect(false));
     })
-    .then(() => dispatch(servicesLoading()))
     .then(() => dispatch(fetchServices()))
     .catch((err) => {
-      dispatch(servicesError(`Произошла ошибка: ${err}`))
+      dispatch(servicesError(`Произошла ошибка: ${err}`));
+      dispatch(servicesRedirect(false));
     });
 }

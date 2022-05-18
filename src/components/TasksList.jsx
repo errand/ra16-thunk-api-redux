@@ -26,7 +26,7 @@ export default function TasksList() {
       </li> }
       {error && <div className="alert alert-danger">{error}</div>}
       {tasks ? tasks.map((task) => (
-        <Task key={task.id} id={task.id} title={task.name} price={task.price}  />
+        <Task key={task.id} id={task.id} title={task.name} price={+task.price}  />
       )) : 'Nothing found'}
     </ul>
   );
