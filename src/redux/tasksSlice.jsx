@@ -32,20 +32,14 @@ export const tasksSlice = createSlice({
       }
     },
     editService: (state, action) => {
-      state.services.forEach(item => {
-        if(item.status === 'editing') {
-          item.status = ''
-        }
-      })
-      state.services.forEach(item => {
-        if(item.id === action.payload.id) {
-          item.status = 'editing'
-        }
-      })
+      if (state.loading === 'pending') {
+        state.loading = 'idle'
+        state.services = action.payload
+      }
     }
   }
 });
 
-export const {deleteService, filterService, servicesLoading, servicesReceived, servicesError} = tasksSlice.actions;
+export const {deleteService, editService, servicesLoading, servicesReceived, servicesError} = tasksSlice.actions;
 
 export default tasksSlice.reducer;

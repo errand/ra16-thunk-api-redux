@@ -1,7 +1,7 @@
 import Task from './Task';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchServices } from "../thunks/serviceThunk";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 export default function TasksList() {
 

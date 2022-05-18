@@ -1,4 +1,4 @@
-import {deleteService, servicesError, servicesLoading, servicesReceived, filterService} from "../redux/tasksSlice";
+import {deleteService, servicesError, servicesLoading, servicesReceived, editService} from "../redux/tasksSlice";
 
 export const fetchServices = () => (dispatch) => {
 
@@ -48,4 +48,19 @@ export const deleteServices = (id) => (dispatch) => {
     .then(() => dispatch(servicesLoading()))
     .then(() => dispatch(fetchServices()))
     .catch((err) => dispatch(servicesError(`Произошла ошибка: ${err}`)));
+}
+
+export const updateServices = (obj) => (dispatch) => {
+  dispatch(servicesLoading());
+  fetch("http://localhost:7070/api/services/", {
+    method: "POST"
+  })
+    .then(() => {
+      dispatch(editService(obj))
+    })
+    .then(() => dispatch(servicesLoading()))
+    .then(() => dispatch(fetchServices()))
+    .catch((err) => {
+      dispatch(servicesError(`Произошла ошибка: ${err}`))
+    });
 }
