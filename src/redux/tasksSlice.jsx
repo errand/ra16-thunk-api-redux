@@ -7,6 +7,11 @@ export const tasksSlice = createSlice({
     error: '',
     loading: 'idle',
     goodToGo: false,
+    task: {
+      name: '',
+      price: '',
+      content: ''
+    }
   },
   reducers: {
     servicesLoading: (state, action) => {
@@ -30,9 +35,14 @@ export const tasksSlice = createSlice({
     servicesRedirect: (state, action) => {
         state.goodToGo = action.payload
     },
+    changeServiceState: (state, action) => {
+      state.name = action.payload.name
+      state.price = action.payload.price
+      state.content = action.payload.content
+    },
   }
 });
 
-export const { servicesLoading, servicesReceived, servicesError, servicesRedirect } = tasksSlice.actions;
+export const { servicesLoading, servicesReceived, servicesError, servicesRedirect, changeServiceState } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
