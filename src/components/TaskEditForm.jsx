@@ -1,5 +1,4 @@
 import {fetchServiceById, updateServices } from "../thunks/serviceThunk";
-import { changeServiceState} from "../redux/tasksSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
@@ -15,21 +14,26 @@ export default function TaskEditForm() {
   const navigate = useNavigate()
 
   const dispatch = useDispatch();
-  const task = useSelector(state => state.tasks.task)
+  const task = useSelector(state => state.tasks.services)
   const loading = useSelector(state => state.tasks.loading)
   const error = useSelector(state => state.tasks.error)
   const goodToGo = useSelector(state => state.tasks.goodToGo)
 
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState('')
+  const [content, setContent] = useState('')
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateServices({id, name: task.name, price: task.price, content: task.content}))
+    const goName = name ? name : task.name
+    const goPrice = price ? price : +task.price
+    const goContent = content ? content : task.content
+    dispatch(updateServices({id, name: goName, price: goPrice, content: goContent}))
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch(changeServiceState(name, value));
-
-    console.log(name, value)
+    name === "name" ? setName(value) : name === "price" ? setPrice(value) : setContent(value)
   }
 
   useEffect(() => {
@@ -43,13 +47,13 @@ export default function TaskEditForm() {
       {loading === 'pending' ? <div className="spinner"></div> :
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <input onChange={handleChange} type="text" placeholder="name" name="name" value={task.name} className="form-control" />
+          <input onChange={handleChange} type="text" placeholder="name" name="name" value={name ? name : task.name} className="form-control" />
         </div>
         <div className="mb-3">
-          <input onChange={handleChange} placeholder="price" type="text" name="price" value={task.price} className="form-control" />
+          <input onChange={handleChange} placeholder="price" type="text" name="price" value={price ? price : task.price} className="form-control" />
         </div>
         <div className="mb-3">
-          <input onChange={handleChange} placeholder="content" type="text" name="content" value={task.content} className="form-control" />
+          <input onChange={handleChange} placeholder="content" type="text" name="content" value={content ? content : task.content} className="form-control" />
         </div>
         <div>
           <Link to="/services" className="btn btn-danger me-1" type="submit">Cancel</Link>

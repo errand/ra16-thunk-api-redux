@@ -7,11 +7,9 @@ export const tasksSlice = createSlice({
     error: '',
     loading: 'idle',
     goodToGo: false,
-    task: {
-      name: '',
-      price: '',
-      content: ''
-    }
+    name: '',
+    price: '',
+    content: ''
   },
   reducers: {
     servicesLoading: (state, action) => {
