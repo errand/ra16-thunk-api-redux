@@ -1,10 +1,11 @@
 import { servicesError, servicesLoading, servicesReceived, servicesRedirect } from "../redux/tasksSlice";
+const PATH = "https://errand-thunk-redux.herokuapp.com/";
 
 export const fetchServices = () => (dispatch) => {
 
   dispatch(servicesLoading());
 
-  fetch("http://localhost:7070/api/services")
+  fetch(PATH)
     .then(request => {
       if (request.status === 200) {
         return request.json();
@@ -22,7 +23,7 @@ export const fetchServices = () => (dispatch) => {
 export const fetchServiceById = (id) => (dispatch) => {
   dispatch(servicesLoading());
 
-  fetch("http://localhost:7070/api/services/" + id)
+  fetch(PATH + id)
     .then(request => {
       if (request.status === 200) {
         return request.json();
@@ -39,7 +40,7 @@ export const fetchServiceById = (id) => (dispatch) => {
 
 export const deleteServices = (id) => (dispatch) => {
   dispatch(servicesLoading());
-  fetch("http://localhost:7070/api/services/" + id, {
+  fetch(PATH + id, {
     method: "DELETE"
   })
     .then(() => dispatch(fetchServices()))
@@ -48,7 +49,7 @@ export const deleteServices = (id) => (dispatch) => {
 
 export const updateServices = (obj) => (dispatch) => {
   dispatch(servicesLoading());
-  fetch("http://localhost:7070/api/services", {
+  fetch(PATH, {
     method: "POST",
     body: JSON.stringify(obj),
   })
