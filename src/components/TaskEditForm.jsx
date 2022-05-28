@@ -42,7 +42,7 @@ export default function TaskEditForm() {
 
   return (
     <>
-      {goodToGo && navigate('/services')}
+      {goodToGo && navigate('https://errand.github.io/ra16-thunk-api-redux/services')}
       {error && <div className="alert alert-danger">{error}</div>}
       {loading === 'pending' ? <div className="spinner"></div> :
       <form onSubmit={handleSubmit}>
@@ -56,7 +56,7 @@ export default function TaskEditForm() {
           <input onChange={handleChange} placeholder="content" type="text" name="content" value={content ? content : task.content} className="form-control" />
         </div>
         <div>
-          <Link to="/services" className="btn btn-danger me-1" type="submit">Cancel</Link>
+          <Link to="https://errand.github.io/ra16-thunk-api-redux/services" className="btn btn-danger me-1" type="submit">Cancel</Link>
           <button className="btn btn-primary" type="submit" onClick={(e) => handleSubmit(e)}>Save</button>
         </div>
       </form> }
