@@ -1,6 +1,6 @@
 import './App.css';
 import {
-  HashRouter,
+  BrowserRouter,
   Routes,
   Route,
   Navigate
@@ -12,14 +12,14 @@ const App = () => {
   return (
     <div className="tasks container">
       <h1 className="title">Services</h1>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path="/services" element={<TasksList />} />
-          <Route path="/services/:id" element={<TaskEditForm />} />
-          <Route path="/" element={<Navigate to="/services" replace />} />
-          <Route path="*" element={<Navigate to="/services" replace />} />
+          <Route path="/ra16-thunk-api-redux/services" element={<TasksList />} />
+          <Route path="/ra16-thunk-api-redux/services/:id" element={<TaskEditForm />} />
+          <Route path="/" element={<Navigate to="/ra16-thunk-api-redux/services" replace />} />
+          <Route path="*" element={<Navigate to="/ra16-thunk-api-redux/services" replace />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 };

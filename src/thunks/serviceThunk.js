@@ -1,5 +1,5 @@
 import { servicesError, servicesLoading, servicesReceived, servicesRedirect } from "../redux/tasksSlice";
-const PATH = "https://errand-thunk-redux.herokuapp.com/api/services";
+const PATH = "https://errand-thunk-redux.herokuapp.com/api/services/";
 
 export const fetchServices = () => (dispatch) => {
 
