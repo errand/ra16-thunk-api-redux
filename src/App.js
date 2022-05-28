@@ -1,6 +1,6 @@
 import './App.css';
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
   Navigate
@@ -12,14 +12,14 @@ const App = () => {
   return (
     <div className="tasks container">
       <h1 className="title">Services</h1>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/services" element={<TasksList />} />
           <Route path="/services/:id" element={<TaskEditForm />} />
           <Route path="/" element={<Navigate to="/services" replace />} />
           <Route path="*" element={<Navigate to="/services" replace />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };
